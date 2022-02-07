@@ -26,5 +26,5 @@ Route::get('/', function (Request $request) {
 
     $message = $response->answers[0]->message;
 
-    return $message;
+    return json_encode($message);
 });
