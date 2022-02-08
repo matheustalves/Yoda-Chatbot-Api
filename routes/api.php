@@ -24,7 +24,5 @@ Route::get('/', function (Request $request) {
     $response = Http::withHeaders($headers)->post('https://api-gce3.inbenta.io/prod/chatbot/v1/conversation/message', $body);
     $response = json_decode($response);
 
-    $message = $response->answers[0]->message;
-
-    return json_encode($message);
+    return $response;
 });
