@@ -36,7 +36,10 @@ class AppServiceProvider extends ServiceProvider
         $response = Http::withHeaders($headers)->post('https://api.inbenta.io/v1/auth', $body);
         $response = json_decode($response);
 
-        $accessToken = $response->accessToken;
+        $accessToken = null;
+        if (!empty($response->accessToken)) {
+            $accessToken = $response->accessToken;
+        }
 
         $headers = [
             'x-inbenta-key' => env('CHATBOT_API_KEY'),
