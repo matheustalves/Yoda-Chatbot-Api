@@ -49,7 +49,10 @@ class AppServiceProvider extends ServiceProvider
         $response = Http::withHeaders($headers)->post('https://api-gce3.inbenta.io/prod/chatbot/v1/conversation');
         $response = json_decode($response);
 
-        $sessionToken = $response->sessionToken;
+        $sessionToken = null;
+        if (!empty($response->accessToken)) {
+            $sessionToken = $response->sessionToken;
+        }
 
         Storage::disk('local')->put('api.txt', $accessToken . PHP_EOL . $sessionToken);
     }
