@@ -36,10 +36,7 @@ class AppServiceProvider extends ServiceProvider
         $response = Http::withHeaders($headers)->post('https://api.inbenta.io/v1/auth', $body);
         $response = json_decode($response);
 
-        $accessToken = null;
-        if (!empty($response->accessToken)) {
-            $accessToken = $response->accessToken;
-        }
+        $accessToken = $response->accessToken;
 
         $headers = [
             'x-inbenta-key' => env('CHATBOT_API_KEY'),
@@ -49,11 +46,9 @@ class AppServiceProvider extends ServiceProvider
         $response = Http::withHeaders($headers)->post('https://api-gce3.inbenta.io/prod/chatbot/v1/conversation');
         $response = json_decode($response);
 
-        $sessionToken = null;
-        if (!empty($response->accessToken)) {
-            $sessionToken = $response->sessionToken;
-        }
+        $sessionToken = $response->sessionToken;
 
-        Storage::disk('local')->put('api.txt', $accessToken . PHP_EOL . $sessionToken);
+        config(['keys.accessToken' => $accessToken]);
+        config(['keys.sessionToken' => $sessionToken]);
     }
 }

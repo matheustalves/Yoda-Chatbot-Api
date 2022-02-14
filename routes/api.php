@@ -6,11 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function (Request $request) {
-    $data = Storage::disk('local')->get('api.txt');
-    $data = explode(PHP_EOL, $data);
-
-    $accessToken = $data[0];
-    $conversationSessionToken = $data[1];
+    $accessToken = config('keys.accessToken');
+    $conversationSessionToken = config('keys.sessionToken');
 
     $headers = [
         'x-inbenta-key' => env('CHATBOT_API_KEY'),

@@ -36,7 +36,8 @@ class Kernel extends ConsoleKernel
 
             $sessionToken = $response->sessionToken;
 
-            Storage::disk('local')->put('api.txt', $accessToken . PHP_EOL . $sessionToken);
+            config(['keys.accessToken' => $accessToken]);
+            config(['keys.sessionToken' => $sessionToken]);
         })->cron('*/19 * * * *');
     }
 
